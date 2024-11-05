@@ -1,0 +1,42 @@
+version: '3'
+services:
+  postgres-books-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: books_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent volume for data
+      - ./init-scripts:/docker-entrypoint-initdb.d/  # Mount your SQL scripts here
+
+  webserver:
+    image: apache/airflow:2.5.0
+    depends_on:
+      - postgres-books-db
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-books-db:5432/books_db
+      - AIRFLOW__WEBSERVER__SECRET_KEY=my_secret_key  # Ensure this is the same across all services
+    command: webserver #add this line to start the webserver
+    ports:
+      - "8080:8080"
+
+  scheduler:
+    image: apache/airflow:2.5.0
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-books-db:5432/books_db
+      - AIRFLOW__WEBSERVER__SECRET_KEY=my_secret_key  # Ensure this is the same across all services
+    command: scheduler
+    depends_on:
+      - webserver
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+
+volumes:
+  postgres_data:  # Define the named volume
