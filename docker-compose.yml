@@ -10,7 +10,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Persistent volume for data
-      - ./init-scripts:/docker-entrypoint-initdb.d/  # Mount your SQL scripts here
 
   webserver:
     image: apache/airflow:2.5.0
@@ -20,7 +19,10 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-books-db:5432/books_db
       - AIRFLOW__WEBSERVER__SECRET_KEY=my_secret_key  # Ensure this is the same across all services
-    command: webserver #add this line to start the webserver
+    command: >
+      bash -c "airflow db init &&
+               airflow users create --username admin --password admin --firstname Admin --lastname Admin --role Admin --email admin@example.com &&
+               airflow webserver"
     ports:
       - "8080:8080"
 
@@ -30,7 +32,8 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-books-db:5432/books_db
       - AIRFLOW__WEBSERVER__SECRET_KEY=my_secret_key  # Ensure this is the same across all services
-    command: scheduler
+    command: >
+      bash -c "airflow db init && airflow scheduler"
     depends_on:
       - webserver
     volumes:

@@ -10,6 +10,17 @@ def load_books_data(transformed_data):
     # Adjust for MySQL if needed
     try:
         with engine.connect() as connection:
+            # Create table if it doesn't exist
+            connection.execute("""
+                        CREATE TABLE IF NOT EXISTS books (
+                            id SERIAL PRIMARY KEY,
+                            title VARCHAR(255),
+                            author VARCHAR(255),
+                            published_date INT,
+                            isbn VARCHAR(20) UNIQUE
+                        );
+                        """)
+            # Insert data
             for book in transformed_data:
                 title = book['title'].replace("'", "''")
                 author = book['author'].replace("'", "''")
