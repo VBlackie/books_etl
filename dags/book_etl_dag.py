@@ -4,10 +4,13 @@ from datetime import datetime
 from extract import extract_books_data
 from transform import transform_books_data
 from load import load_books_data
+from pytz import timezone
+
+local_tz = timezone("America/New_York")
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 11, 5),
+    'start_date': datetime(2024, 11, 13, tzinfo=local_tz),
     'retries': 1,
 }
 
