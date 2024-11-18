@@ -4,10 +4,12 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def load_books_data(transformed_data, **kwargs):
     engine = create_engine('postgresql+psycopg2://airflow:airflow@postgres-books-db:5432/books_db')
     try:
         with engine.connect() as connection:
+            logging.info("Ensuring tables exist...")
             # Create books table if it doesn't exist
             connection.execute("""
                 CREATE TABLE IF NOT EXISTS books (
@@ -58,9 +60,7 @@ def load_books_data(transformed_data, **kwargs):
             # Calculate new and existing records
             new_records = after_count - before_count
             existing_records = before_count  # Since we skipped duplicates
-
-            # Push record count to XCom
-            kwargs['ti'].xcom_push(key='record_count', value=new_records)
+            logging.info(f"Books added: {new_records}, Total books: {after_count}")
 
             # Insert metadata
             connection.execute(f"""
@@ -68,7 +68,6 @@ def load_books_data(transformed_data, **kwargs):
                 VALUES ({after_count}, {new_records}, {existing_records});
             """)
 
-        logging.info(f"Data loaded successfully: {new_records} new records, {existing_records} existing records.")
     except Exception as e:
         logging.error(f"An error occurred while loading data: {e}")
         raise

@@ -1,3 +1,5 @@
+import logging
+
 def transform_books_data(raw_data):
     transformed_data = []
     unique_books = set()  # Set to store unique identifiers (ISBN or title-author pairs)
@@ -24,5 +26,6 @@ def transform_books_data(raw_data):
             'published_date': book['published_date'],
             'isbn': book['isbn']
         })
+    logging.info(f"Transformed {len(transformed_data)} unique books.")
 
     return transformed_data
