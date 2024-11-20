@@ -1,5 +1,17 @@
 import logging
 
+
+def validate_transformed_data(transformed_data):
+    for book in transformed_data:
+        if not book['title'] or not book['author']:
+            logging.warning(f"Missing critical fields in book: {book}")
+        if book['published_date'] and (book['published_date'] > 2024 or book['published_date'] < 1500):
+            logging.warning(f"Unrealistic published_date for book: {book}")
+        if not isinstance(book['isbn'], (str, type(None))):
+            logging.warning(f"Invalid ISBN format for book: {book}")
+    logging.info("Transformed data validated successfully.")
+
+
 def transform_books_data(raw_data):
     transformed_data = []
     unique_books = set()  # Set to store unique identifiers (ISBN or title-author pairs)
@@ -32,6 +44,7 @@ def transform_books_data(raw_data):
                 'published_date': book['published_date'],
                 'isbn': book['isbn']
             })
+        validate_transformed_data(transformed_data)  # Add validation here
 
         # Log the result of the transformation
         logging.info(f"Successfully transformed {len(transformed_data)} unique books out of {len(raw_data)} raw entries.")

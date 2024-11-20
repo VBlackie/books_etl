@@ -2,6 +2,13 @@ import requests
 import logging
 
 
+def validate_api_response(data):
+    if not isinstance(data, list):
+        logging.error("Invalid API response structure.")
+        raise ValueError("API response is not in the expected format.")
+    logging.info("API response validated successfully.")
+
+
 def extract_books_data():
     url = 'https://openlibrary.org/search.json?q=data+engineering'  # Focused query on data engineering
     try:
@@ -9,6 +16,7 @@ def extract_books_data():
         response.raise_for_status()  # This raises an HTTPError for bad responses (e.g., 4xx, 5xx)
 
         data = response.json()['docs']
+        validate_api_response(data)  # Add validation here
 
         # Extract relevant fields
         extracted_data = [{

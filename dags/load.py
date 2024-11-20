@@ -4,6 +4,21 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
+def validate_loaded_data(connection):
+    # Check for duplicates in the `books` table
+    duplicates_query = """
+    SELECT isbn, COUNT(*) FROM books
+    GROUP BY isbn
+    HAVING COUNT(*) > 1;
+    """
+    duplicates = connection.execute(duplicates_query).fetchall()
+    if duplicates:
+        logging.error(f"Duplicate records found in database: {duplicates}")
+        raise ValueError("Duplicate records detected in the `books` table.")
+    logging.info("Database validated successfully.")
+
+
 def load_books_data(transformed_data, **kwargs):
     engine = create_engine('postgresql+psycopg2://airflow:airflow@postgres-books-db:5432/books_db')
 
@@ -67,6 +82,9 @@ def load_books_data(transformed_data, **kwargs):
             # Calculate new and existing records
             new_records = after_count - before_count
             existing_records = before_count  # Since duplicates were skipped
+
+            # Validation for loaded data
+            validate_loaded_data(connection)
             logging.info(f"Books added: {new_records}, Total books: {after_count}, Existing books: {existing_records}")
 
             # Insert metadata
