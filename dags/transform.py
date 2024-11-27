@@ -42,7 +42,8 @@ def transform_books_data(raw_data):
                 'title': book['title'],
                 'author': book['author'],
                 'published_date': book['published_date'],
-                'isbn': book['isbn']
+                'isbn': book['isbn'],
+                'source': book['source']
             })
         validate_transformed_data(transformed_data)  # Add validation here
 

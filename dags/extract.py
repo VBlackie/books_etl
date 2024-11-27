@@ -23,7 +23,8 @@ def extract_books_data():
             'title': book.get('title', 'Unknown Title'),
             'author': ', '.join(book['author_name']) if 'author_name' in book else 'Unknown Author',
             'published_date': book.get('first_publish_year'),
-            'isbn': book['isbn'][0] if 'isbn' in book else None
+            'isbn': book['isbn'][0] if 'isbn' in book else None,
+            'source': 'Openlibrary'
         } for book in data]
 
         return extracted_data
