@@ -38,7 +38,7 @@ def extract_books_from_google_books(query, max_results=10):
                 'isbn': next(
                     (id['identifier'] for id in volume_info.get('industryIdentifiers', []) if id['type'] == 'ISBN_13'),
                     None),
-                'source': 'Google Books'
+                'source': 'GoogleBooks'
             })
 
         logging.info(f"Successfully extracted {len(books)} books from Google Books API.")
