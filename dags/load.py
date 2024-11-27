@@ -34,7 +34,8 @@ def load_books_data(transformed_data, **kwargs):
                     title VARCHAR(255),
                     author VARCHAR(255),
                     published_date INT,
-                    isbn VARCHAR(20) UNIQUE
+                    isbn VARCHAR(20) UNIQUE,
+                    source VARCHAR(50)
                 );
             """)
             connection.execute("""
@@ -58,6 +59,7 @@ def load_books_data(transformed_data, **kwargs):
                 author = book['author'].replace("'", "''")
                 published_date = book['published_date']
                 isbn = book['isbn']
+                source = book['source']
 
                 try:
                     insert_query = f"""
@@ -66,7 +68,8 @@ def load_books_data(transformed_data, **kwargs):
                         '{title}',
                         '{author}',
                         {published_date if published_date else 'NULL'},
-                        '{isbn if isbn else ''}'
+                        '{isbn if isbn else ''}',
+                        '{source}'
                     )
                     ON CONFLICT (isbn) DO NOTHING;
                     """

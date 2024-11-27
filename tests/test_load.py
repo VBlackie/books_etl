@@ -10,13 +10,15 @@ def test_load_books_data():
             'title': 'Test Book 1',
             'author': 'Author 1',
             'published_date': 2023,
-            'isbn': '1234567890'
+            'isbn': '1234567890',
+            'source': 'OpenLibrary'
         },
         {
             'title': 'Test Book 2',
             'author': 'Author 2',
             'published_date': 2022,
-            'isbn': '0987654321'
+            'isbn': '0987654321',
+            'source': 'GoogleBooks'
         }
     ]
 
