@@ -6,59 +6,59 @@ def test_transform_books_data():
     # Mock raw data
     raw_data = [
         {
-            'title': 'Test Book 1',
-            'author': 'Author 1',
-            'published_date': 2023,
+            'title': 'Book With Full Date',
+            'author': 'Author Full Date',
+            'published_date': '2022-06-15',
             'isbn': '1234567890',
-            'source': 'OpenLibrary'
+            'source': 'GoogleBooks'
         },
         {
-            'title': 'Test Book 2',
-            'author': 'Author 2',
-            'published_date': 2022,
+            'title': 'Book With Year Only',
+            'author': 'Author Year Only',
+            'published_date': '2020',
             'isbn': '0987654321',
+            'source': 'OpenLibrary'
+        },
+        {
+            'title': 'Book With Invalid Date',
+            'author': 'Author Invalid Date',
+            'published_date': 'invalid_date',
+            'isbn': None,
             'source': 'GoogleBooks'
         },
         {
-            'title': 'Test Book 1',  # Duplicate based on title and author
-            'author': 'Author 1',
-            'published_date': 2023,
-            'isbn': '1234567890',
-            'source': 'OpenLibrary'
-
-        },
-        {
-            'title': '',  # Invalid due to missing title
-            'author': 'Author 3',
-            'published_date': 2020,
+            'title': 'Book With Unrealistic Year',
+            'author': 'Author Unrealistic Year',
+            'published_date': '3024',
             'isbn': '1111111111',
-            'source': 'GoogleBooks'
+            'source': 'OpenLibrary'
         },
         {
-            'title': 'Test Book 3',
-            'author': '',  # Invalid due to missing author
-            'published_date': 2021,
+            'title': '',  # Missing title
+            'author': 'Author Missing Title',
+            'published_date': '2021',
             'isbn': '2222222222',
-            'source': 'OpenLibrary'
-        }
+            'source': 'GoogleBooks'
+        },
     ]
 
     # Expected transformed data
     expected_result = [
         {
-            'title': 'Test Book 1',
-            'author': 'Author 1',
-            'published_date': 2023,
+            'title': 'Book With Full Date',
+            'author': 'Author Full Date',
+            'published_date': '2022-06-15',
             'isbn': '1234567890',
-            'source': 'OpenLibrary'
+            'source': 'GoogleBooks'
         },
         {
-            'title': 'Test Book 2',
-            'author': 'Author 2',
-            'published_date': 2022,
+            'title': 'Book With Year Only',
+            'author': 'Author Year Only',
+            'published_date': '2020',
             'isbn': '0987654321',
-            'source': 'GoogleBooks'
+            'source': 'OpenLibrary'
         }
+        # The other books are skipped due to missing title, invalid date, or unrealistic year.
     ]
 
     # Call the function

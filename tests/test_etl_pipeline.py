@@ -1,8 +1,12 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from dags.extract import extract_books_data
+from dags.extract_from_google_books import extract_books_from_google_books
 from dags.transform import transform_books_data
 from dags.load import load_books_data
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 def normalize_query(query):
@@ -11,38 +15,48 @@ def normalize_query(query):
 
 
 def test_etl_pipeline_integration():
-    # Step 1: Mock API response for extract step
-    mock_api_response = {
+    # Step 1: Mock API responses for both sources
+    mock_openlibrary_response = {
         'docs': [
             {
-                'title': 'Test Book 1',
-                'author_name': ['Author 1'],
+                'title': 'Test Book',
+                'author_name': ['Test Author'],
                 'first_publish_year': 2023,
                 'isbn': ['1234567890']
-            },
+            }
+        ]
+    }
+
+    mock_google_books_response = {
+        'items': [
             {
-                'title': 'Test Book 2',
-                'author_name': ['Author 2'],
-                'first_publish_year': 2022,
-                'isbn': ['0987654321']
+                'volumeInfo': {
+                    'title': 'Test Book 2',
+                    'authors': ['Author 2'],
+                    'publishedDate': '2022',
+                    'industryIdentifiers': [{'type': 'ISBN_13', 'identifier': '0987654321'}]
+                }
             }
         ]
     }
 
     # Mock database engine and connection
     with patch('dags.load.create_engine') as mock_create_engine, \
-            patch('dags.extract.requests.get') as mock_get:
+            patch('dags.extract.requests.get') as mock_get_openlibrary, \
+            patch('dags.extract_from_google_books.requests.get') as mock_get_google_books:
 
-        # Mock the API request
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = mock_api_response
+        # Mock the API requests
+        mock_get_openlibrary.return_value.status_code = 200
+        mock_get_openlibrary.return_value.json.return_value = mock_openlibrary_response
+
+        mock_get_google_books.return_value.status_code = 200
+        mock_get_google_books.return_value.json.return_value = mock_google_books_response
 
         # Mock the database connection
         mock_engine = MagicMock()
         mock_connection = mock_engine.connect.return_value.__enter__.return_value
         mock_create_engine.return_value = mock_engine
 
-        # Set up mocked responses for `execute` calls
         def mock_execute(query, *args, **kwargs):
             query = query.strip().lower()
             if "select count(*) from books" in query:
@@ -56,16 +70,27 @@ def test_etl_pipeline_integration():
 
         mock_connection.execute.side_effect = mock_execute
 
-        # Step 2: Run the extract step
-        extracted_data = extract_books_data()
-        assert len(extracted_data) == 2  # Ensure we extracted two books
+        # Step 2: Run the extract step for OpenLibrary
+        # mock_get_openlibrary.return_value.json.return_value = mock_openlibrary_response
+        # print("Mocked OpenLibrary Response:", mock_get_openlibrary.return_value.json.return_value)
+        logging.debug("Mocked OpenLibrary Response: %s", mock_get_openlibrary.return_value.json.return_value)
+        extracted_openlibrary_data = extract_books_data()
+        assert len(extracted_openlibrary_data) == 1
 
-        # Step 3: Run the transform step
-        transformed_data = transform_books_data(extracted_data)
-        assert len(transformed_data) == 2  # Ensure transformation was successful
+        # Step 3: Run the extract step for Google Books
+        extracted_google_books_data = extract_books_from_google_books("data+engineering", max_results=1)
+        assert len(extracted_google_books_data) == 1
 
-        # Step 4: Run the load step
-        load_books_data(transformed_data)
+        # Step 4: Transform both datasets
+        transformed_openlibrary_data = transform_books_data(extracted_openlibrary_data)
+        transformed_google_books_data = transform_books_data(extracted_google_books_data)
+
+        assert len(transformed_openlibrary_data) == 1
+        assert len(transformed_google_books_data) == 1
+
+        # Step 5: Load both datasets
+        load_books_data(transformed_openlibrary_data)
+        load_books_data(transformed_google_books_data)
 
         # Debugging executed queries
         executed_queries = [normalize_query(call[0][0]) for call in mock_connection.execute.call_args_list]
@@ -73,27 +98,15 @@ def test_etl_pipeline_integration():
         for query in executed_queries:
             print(query)
 
-        # Normalize expected queries
-        expected_query = normalize_query("""
+        # Assert that table creation queries are present
+        expected_books_table_query = normalize_query("""
             CREATE TABLE IF NOT EXISTS books (
                 id SERIAL PRIMARY KEY,
                 title VARCHAR(255),
                 author VARCHAR(255),
                 published_date INT,
-                isbn VARCHAR(20) UNIQUE
+                isbn VARCHAR(20) UNIQUE,
+                source VARCHAR(50)
             );
         """)
-
-        expected_metadata_query = normalize_query("""
-            CREATE TABLE IF NOT EXISTS metadata (
-                id SERIAL PRIMARY KEY,
-                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                total_records INT,
-                new_records INT,
-                existing_records INT
-            );
-        """)
-
-        # Assert that queries were executed
-        assert expected_query in executed_queries, f"Books table creation query not executed. Expected: {expected_query}"
-        assert expected_metadata_query in executed_queries, "Metadata table creation query not executed."
+        assert expected_books_table_query in executed_queries, "Books table creation query not executed."

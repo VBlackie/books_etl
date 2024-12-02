@@ -3,6 +3,7 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime
 from slack_notifications import send_slack_message
 from extract import extract_books_data
+from extract_from_google_books import extract_books_from_google_books
 from transform import transform_books_data
 from load import load_books_data
 from pytz import timezone
@@ -51,31 +52,54 @@ with DAG(
         python_callable=notify_start
     )
 
-    extract_task = PythonOperator(
-        task_id='extract_books_data',
+    # OpenLibrary extract, transform, and load
+
+    extract_openlibrary_task = PythonOperator(
+        task_id='extract_openlibrary_data',
         python_callable=extract_books_data
     )
-    logging.info("Extract task created.")
+    logging.info("Extract openlibrary task created.")
 
-    transform_task = PythonOperator(
-        task_id='transform_books_data',
+    transform_openlibrary_task = PythonOperator(
+        task_id='transform_openlibrary_data',
         python_callable=transform_books_data,
-        op_args=[extract_task.output]
+        op_args=[extract_openlibrary_task.output]
     )
-    logging.info("Transform task created.")
+    logging.info("Transform openlibrary task created.")
 
-    load_task = PythonOperator(
-        task_id='load_books_data',
+    load_openlibrary_task = PythonOperator(
+        task_id='load_openlibrary_data',
         python_callable=load_books_data,
-        op_args=[transform_task.output]
+        op_args=[transform_openlibrary_task.output]
     )
     logging.info("Load task created.")
+
+    # Google Books extract, transform, and load
+    extract_google_books_task = PythonOperator(
+        task_id='extract_google_books_data',
+        python_callable=extract_books_from_google_books,
+        op_args=["data+engineering", 10]  # Example query and max results
+    )
+    transform_google_books_task = PythonOperator(
+        task_id='transform_google_books_data',
+        python_callable=transform_books_data,
+        op_args=[extract_google_books_task.output]
+    )
+    load_google_books_task = PythonOperator(
+        task_id='load_google_books_data',
+        python_callable=load_books_data,
+        op_args=[transform_google_books_task.output]
+    )
 
     success_notification = PythonOperator(
         task_id='notify_success',
         python_callable=notify_success
     )
 
-    # Set dependencies
-    start_notification >> extract_task >> transform_task >> load_task >> success_notification
-    logging.info("Task dependencies set: start -> extract -> transform -> load ->success.")
+    # Set task dependencies
+    start_notification >> [extract_openlibrary_task, extract_google_books_task]
+    extract_openlibrary_task >> transform_openlibrary_task >> load_openlibrary_task
+    extract_google_books_task >> transform_google_books_task >> load_google_books_task
+    [load_openlibrary_task, load_google_books_task] >> success_notification
+
+    logging.info("Task dependencies set: start -> extract -> transform -> load -> success.")

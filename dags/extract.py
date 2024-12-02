@@ -16,6 +16,7 @@ def extract_books_data():
         response.raise_for_status()  # This raises an HTTPError for bad responses (e.g., 4xx, 5xx)
 
         data = response.json()['docs']
+        # print(data)
         validate_api_response(data)  # Add validation here
 
         # Extract relevant fields
@@ -26,6 +27,7 @@ def extract_books_data():
             'isbn': book['isbn'][0] if 'isbn' in book else None,
             'source': 'OpenLibrary'
         } for book in data]
+        # print(extracted_data)
 
         return extracted_data
 
