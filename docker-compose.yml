@@ -24,6 +24,7 @@ services:
       - AIRFLOW__CORE__DEFAULT_TIMEZONE=America/New_York
       - SLACK_API_TOKEN=${SLACK_API_TOKEN}
       - GOOGLE_BOOKS_API_KEY=${GOOGLE_BOOKS_API_KEY}
+      - TZ=America/New_York
     command: >
       bash -c "airflow db init &&
                airflow users create --username ${AIRFLOW_ADMIN_USERNAME} --password ${AIRFLOW_ADMIN_PASSWORD} --firstname Admin --lastname Admin --role Admin --email admin@example.com &&
