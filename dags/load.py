@@ -63,7 +63,7 @@ def load_books_data(transformed_data, **kwargs):
 
                 try:
                     insert_query = f"""
-                    INSERT INTO books (title, author, published_date, isbn)
+                    INSERT INTO books (title, author, published_date, isbn, source)
                     VALUES (
                         '{title}',
                         '{author}',
