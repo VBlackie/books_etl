@@ -128,28 +128,27 @@ Should thou prefer the sanctity of pgAdmin4:
   
 Alternatively, should thou be inclined to use the command line:
 
-    ```
     psql -h localhost -p 5433 -U airflow -d books_db
 ## 📂 Project Structure
-    ```
+
 📁 Books_ETL_Pipeline/
 ├── 📂 dags/
 │   ├── book_etl_dag.py         # DAG of Airflow  
-│   ├── extract.py              # Gatherer of Data from OpenLibrary
-│   ├── extract_from_google.py  # Gatherer of Data from GoogleBooks
+│   ├── extract.py              # Gatherer of Data from OpenLibrary  
+│   ├── extract_from_google.py  # Gatherer of Data from GoogleBooks  
 │   ├── transform.py            # Purifier of Records  
-│   ├── load.py                 # Depositor of Information
-│   ├── slack_notifications.py  # Herald of Notifications
+│   ├── load.py                 # Depositor of Information  
+│   ├── slack_notifications.py  # Herald of Notifications  
 ├── 📂 logs/                    # Chronicles of Airflow  
 ├── 📂 plugins/                 # Custom Enhancements  
 ├── 📂 tests/                   # Realm of Testing and Validation  
 │   ├── test_extract.py         # Examiner of Gatherer Logic  
 │   ├── test_transform.py       # Scrutinizer of Data Purification  
-│   ├── test_load.py            # Overseer of Data Deposition
-│   ├── test_etl_pipeline.py    # Examiner of Integrity
-├── 🐳 docker-compose.yml        # Configuration of the Fleet
-├── 📜 requirements.txt        # The Scroll of dependencies
-└── 🌐 .env                     # Hidden Secrets
+│   ├── test_load.py            # Overseer of Data Deposition  
+│   ├── test_etl_pipeline.py    # Examiner of Integrity  
+├── 🐳 docker-compose.yml       # Configuration of the Fleet  
+├── 📜 requirements.txt         # The Scroll of Dependencies  
+└── 🌐 .env                     # Hidden Secrets 
 
 ## ⚠️ Known Issues and Their Vanquishment
 1. **Scheduler Heartbeat Falters 🛠️:**
