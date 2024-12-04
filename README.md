@@ -90,10 +90,15 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 2. **Declare Thy Secrets:** Create a .env file with:
 
     ```
-    SLACK_API_TOKEN=<your-slack-api-token>
     POSTGRES_USER=airflow
     POSTGRES_PASSWORD=airflow
     POSTGRES_DB=books_db
+    AIRFLOW__WEBSERVER__SECRET_KEY=<your_secret_key>
+    AIRFLOW_ADMIN_USERNAME=admin
+    AIRFLOW_ADMIN_PASSWORD=admin
+    SLACK_CHANNEL=<your-slack-channel>
+    SLACK_API_TOKEN=<your-slack-api-token>
+    GOOGLE_BOOKS_API_KEY=<your-google-books-api-key>
 3. **Raise Thy Docker Containers:**
 
     ```
