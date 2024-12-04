@@ -16,30 +16,34 @@ Hear ye, hear ye! Gather thy gaze upon this most wondrous depiction of the grand
 
 Within its bounds, thou shalt witness the harmonious interplay of myriad parts, each a vital cog in this celestial mechanism. From Security Sanctuaries to ensure the sacred safety of thine operations, to the Testing Grounds whereupon thy code is proven and hardened, this diagram illustrates the majestic flow of data, transformed from its humble JSON origins into a regal table of fields—fit for analysis and insight.
 ![Ye Old Diagrams of Pipeline Wizardry](Books%20ETL%20Architecture%20Diagram.jpg)
-🔒 Security: Lo, the bastions of access control and protection, ensuring no ill-begotten hand may meddle with the data's purity.
 
-🧪 Testing: Prithee, regard this as the proving grounds where robustness is forged, where bugs are vanquished, and the pipeline stands resilient.
+🔒 **Security:** Lo, the bastions of access control and protection, ensuring no ill-begotten hand may meddle with the data's purity.
 
-🐳 Docker Enclosure: Witness the orchestration of containers, wherein each component dwelleth in isolation yet communicateth with precision, making the entire pipeline agile and portable.
+🧪 **Testing:** Prithee, regard this as the proving grounds where robustness is forged, where bugs are vanquished, and the pipeline stands resilient.
 
-📤 Data Extraction: Here lieth the cradle of our endeavor, whence data is lifted from its JSON confines and set forth upon its transformative journey.
+🐳 **Docker Enclosure:** Witness the orchestration of containers, wherein each component dwelleth in isolation yet communicateth with precision, making the entire pipeline agile and portable.
 
-🛠️ Data Transformation: The alchemy of the pipeline! Fields are cleansed, shaped, and readied for their destined purpose. Here, titles, authors, years, and sources are refined into their final glorious forms.
+📤 **Data Extraction:** Here lieth the cradle of our endeavor, whence data is lifted from its JSON confines and set forth upon its transformative journey.
 
-📊 Final Table: The culmination of all labors! Behold the tabular majesty, wherein the fruits of thy efforts—titles, authors, publication years, and more—stand ready to enlighten thy endeavors.
+🛠️ **Data Transformation:** The alchemy of the pipeline! Fields are cleansed, shaped, and readied for their destined purpose. Here, titles, authors, years, and sources are refined into their final glorious forms.
 
-🎩 Airflow Sorcery: Marvel at the enchanted scheduler, tirelessly orchestrating the pipeline's every step with grace and precision.
+📊 **Final Table:** The culmination of all labors! Behold the tabular majesty, wherein the fruits of thy efforts—titles, authors, publication years, and more—stand ready to enlighten thy endeavors.
+
+🎩 **Airflow Sorcery:** Marvel at the enchanted scheduler, tirelessly orchestrating the pipeline's every step with grace and precision.
 
 *Here, in this tableau of wisdom, the ETL process cometh alive. Gaze upon its intricacies, for herein liest not just a method but a marvel, where chaos is tamed and knowledge is borne.*
 
 ## ✨ Features of Noble Craft
-- 🛠️ Extraction of Many Founts: Gathers knowledge from the OpenLibrary and Google Books APIs, like a wise scholar pulling treasures from ancient tomes.
-- 🧹 Purification of Data: Cleanseth and enriches the raw information, ensuring it is fair and fit for study.
-- 📊 Integration with the Repository of Postgres: Deposits the bounty into a steadfast database for safekeeping and recall.
-- 🛡️ Defenses and Logging of Errors: Implements vigilant sentinels to guard against mishaps and record the chronicles of the pipeline.
-- ⏰ Automation of Timely Tasks: Employeth the magic of Airflow to schedule thy tasks, ensuring they commence with precision.
-- 📩 Slack Heraldry: Dispatches messengers to announce the state of thine efforts in real-time.
-- 📦 Encasement in Docker’s Vessel: Encircles the pipeline in the aegis of Docker for deployment and scaling to lands far and wide.
+- 🛠️ **Extraction of Many Founts:** Gathers knowledge from the OpenLibrary and Google Books APIs, like a wise scholar pulling treasures from ancient tomes.
+- 🧹 **Purification of Data:** Cleanseth and enriches the raw information, ensuring it is fair and fit for study.
+- 📊 **Integration with the Repository of Postgres:** Deposits the bounty into a steadfast database for safekeeping and recall.
+- 🛡️ **Defenses and Logging of Errors:** Implements vigilant sentinels to guard against mishaps and record the chronicles of the pipeline.
+![Logs2](airflow_books_log2.PNG)
+- ⏰ **Automation of Timely Tasks:** Employeth the magic of Airflow to schedule thy tasks, ensuring they commence with precision.
+![Airflow_1](airflow_books1.PNG)
+- 📩 **Slack Heraldry:** Dispatches messengers to announce the state of thine efforts in real-time.
+![Slackexample](slack_books_etl.PNG)
+- 📦 **Encasement in Docker’s Vessel:** Encircles the pipeline in the aegis of Docker for deployment and scaling to lands far and wide.
 ![Dockerimagepng](docker_books_etl.PNG)
 ---
 ## 🏗️ The Grand Architecture
@@ -67,7 +71,6 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 6. **🔔 Monitoring:**
 
 - Announceth pipeline statuses via Slack 📲.
-![Slackexample](slack_books_etl.PNG)
 - Airflow's interface reveals all activity 📋.
 ![airflowgant](airflow_books_log3.PNG)
 ## 🚀 For the Journeyman Getting Started
@@ -105,10 +108,8 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 ## 🛠️ Usage of This Mechanism
 - Command Thy Pipeline through the hallowed Airflow UI 🌀.
 ![Airflow_2](airflow_books2.PNG)
-
 - Monitor Thy Logs with diligence for assurance 📜.
 ![Logs1](airflow_books_log1.PNG)
-![Logs2](airflow_books_log2.PNG)
 - Query Thy Database and unearth its treasures:
 Should thou prefer the sanctity of pgAdmin4:
 ![PGadmin](Pgadmin_books_etl.PNG)
