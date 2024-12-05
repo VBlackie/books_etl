@@ -18,6 +18,7 @@
 11. 🎯 [A Roadmap of Future Glories](#-a-roadmap-of-future-glories)  
 12. 🤝 [The Spirit of Fellowship](#-the-spirit-of-fellowship)  
 13. 📜 [License](#-license)
+14. 📖 [For the Unversed in Antiquity’s Tongue](#-for-the-unversed-in-antiquitys-tongue)
 
 ## 🌟Of Overview and Noble Purpose
 Greetings, kind scholars and brave data wranglers! Lend thy ears and open thine eyes, for I shall regale thee with the tale of a most wondrous endeavor: the Books ETL Pipeline Project. In this hallowed pursuit, we dost weave together the intricate threads of data extraction, transformation, and loading to uncover knowledge most profound.
@@ -35,7 +36,9 @@ Hark! This noble endeavor is fashioned to fetch and hold knowledge, tracking the
 Hear ye, hear ye! Gather thy gaze upon this most wondrous depiction of the grand ETL pipeline!
 
 Within its bounds, thou shalt witness the harmonious interplay of myriad parts, each a vital cog in this celestial mechanism. From Security Sanctuaries to ensure the sacred safety of thine operations, to the Testing Grounds whereupon thy code is proven and hardened, this diagram illustrates the majestic flow of data, transformed from its humble JSON origins into a regal table of fields—fit for analysis and insight.
-![Ye Old Diagrams of Pipeline Wizardry](Books%20ETL%20Architecture%20Diagram.jpg)
+![Ye Old Diagrams of Pipeline Wizardry](Books%20ETL%20Architecture%20Diagram1.jpg)
+![Ye Old Diagrams of Pipeline Wizardry](Books%20ETL%20Architecture%20Diagram2.jpg)
+![Ye Old Diagrams of Pipeline Wizardry](Books%20ETL%20Architecture%20Diagram3.jpg)
 
 🔒 **Security:** Lo, the bastions of access control and protection, ensuring no ill-begotten hand may meddle with the data's purity.
 
@@ -59,10 +62,13 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 - 📊 **Integration with the Repository of Postgres:** Deposits the bounty into a steadfast database for safekeeping and recall.
 - 🛡️ **Defenses and Logging of Errors:** Implements vigilant sentinels to guard against mishaps and record the chronicles of the pipeline.
 ![Logs2](airflow_books_log2.PNG)
+
 - ⏰ **Automation of Timely Tasks:** Employeth the magic of Airflow to schedule thy tasks, ensuring they commence with precision.
 ![airflowgant](airflow_books_log3.PNG)
+
 - 📩 **Slack Heraldry:** Dispatches messengers to announce the state of thine efforts in real-time.
 ![Slackexample](slack_books_etl.PNG)
+
 - 📦 **Encasement in Docker’s Vessel:** Encircles the pipeline in the aegis of Docker for deployment and scaling to lands far and wide.
 ![Dockerimagepng](docker_books_etl.PNG)
 ---
@@ -133,8 +139,10 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 ## 🛠️ Usage of This Mechanism
 - Command Thy Pipeline through the hallowed Airflow UI 🌀.
 ![Airflow_2](airflow_books2.PNG)
+
 - Monitor Thy Logs with diligence for assurance 📜.
 ![Logs1](airflow_books_log1.PNG)
+
 - Query Thy Database and unearth its treasures:
 Should thou prefer the sanctity of pgAdmin4:
 ![PGadmin](Pgadmin_books_etl.PNG)
@@ -226,3 +234,41 @@ By following these steps, thou canst tailor this repository to serve thy most pe
 Contributions are welcome! Sharpen thy code and submit thy Pull Requests. Together, let us make this project legendary 🌟.
 ## 📜 License
 This project is bestowed under the MIT License. It is free to use, modify, and cherish.
+
+## 📖 For the Unversed in Antiquity’s Tongue
+A Glossary of Ye Olde Terms
+
+Fear not, gentle reader, should the flowery language of this proclamation confound thee! Below is a humble guide to the more curious words thou mayst encounter within this hallowed text:
+- Alas! – A cry of sorrow or regret, used to express lamentation.
+Example: "Alas! The goblins of slumber delay thy database!"
+
+- Anon – Soon, shortly, in a little while.
+Example: "Deploy thy pipeline anon and uncover treasures untold!"
+
+- Behold! – Look upon this with awe and wonder!
+Example: "Behold! The Diagrammatic Depiction of the ETL Pipeline!"
+
+- Doth – An archaic form of 'does,' used for emphasis.
+Example: "Lo, this project doth exemplify the art of data engineering."
+
+- Hark! – Pay heed! Listen well, for what follows is of utmost importance.
+Example: "Hark! This noble endeavor is fashioned to fetch and hold knowledge!"
+
+- Hear ye! Hear ye! – An announcement or proclamation, commanding attention.
+Example: "Hear ye, hear ye! Gather thy gaze upon this most wondrous depiction!"
+
+- Lo! – Behold! A word to draw attention to something noteworthy.
+Example: "Lo, this pipeline is not merely a tool but a masterwork!"
+
+- Methinks – I believe, I consider, or it seems to me.
+Example: "Methinks this endeavor shall serve thee well in thy noble quest!"
+
+- Prithee – I entreat thee, or I ask of thee.
+Example: "Prithee know, fair user, that thou mayest adapt its workings."
+
+- Thou/Thy/Thee/Thine – You/Your/To You/Yours (respectively).
+Example: "Command thy pipeline and monitor thy logs with diligence."
+
+- Verily – Truly, indeed, without a doubt.
+Example: "Verily, this mechanism is a marvel of data engineering!"
+
