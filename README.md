@@ -72,7 +72,7 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 
 - Announceth pipeline statuses via Slack 📲.
 - Airflow's interface reveals all activity 📋.
-![airflowgant](airflow_books_log3.PNG)
+
 ## 🚀 For the Journeyman Getting Started
 ### ⚙️ Preparations for Thy Quest
 - 🐳 Docker & Docker Compose
