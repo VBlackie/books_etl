@@ -1,5 +1,25 @@
 # 📜 A Proclamation Regarding the Noble Data Engineering Books ETL Pipeline Project! 📜
-## 🌟Overview
+
+## 🗂️ Table of Contents
+
+1. 📜 [Of Overview and Noble Purpose](#-of-overview-and-noble-purpose)  
+2. 📜 [Of Purpose, Intention, and Worthy Usage](#-of-purpose-intention-and-worthy-usage)  
+3. 🖼️ [BEHOLD! The Diagrammatic Depiction of the ETL Pipeline](#-behold-the-diagrammatic-depiction-of-the-etl-pipeline)  
+4. ✨ [Features of Noble Craft](#-features-of-noble-craft)  
+5. 🏗️ [The Grand Architecture](#-the-grand-architecture)  
+   - 🧩 [Components of Ye ETL Pipeline](#-components-of-ye-etl-pipeline)  
+6. 🚀 [For the Journeyman Getting Started](#-for-the-journeyman-getting-started)  
+   - ⚙️ [Preparations for Thy Quest](#-preparations-for-thy-quest)  
+   - 📥 [Commencement of Deployment](#-commencement-of-deployment)  
+7. 🛠️ [Usage of This Mechanism](#-usage-of-this-mechanism)  
+8. 🔧 [Customize to Thy Liking](#-customize-to-thy-liking)  
+9. 📂 [Project Structure](#-project-structure)  
+10. ⚠️ [Known Issues and Their Vanquishment](#-known-issues-and-their-vanquishment)  
+11. 🎯 [A Roadmap of Future Glories](#-a-roadmap-of-future-glories)  
+12. 🤝 [The Spirit of Fellowship](#-the-spirit-of-fellowship)  
+13. 📜 [License](#-license)
+
+## 🌟Of Overview and Noble Purpose
 Greetings, kind scholars and brave data wranglers! Lend thy ears and open thine eyes, for I shall regale thee with the tale of a most wondrous endeavor: the Books ETL Pipeline Project. In this hallowed pursuit, we dost weave together the intricate threads of data extraction, transformation, and loading to uncover knowledge most profound.
 
 This grand mechanism, devised by tireless toil and wisdom, doth unite the realms of Python, Docker, PostgreSQL, and Airflow. By its might, one may harvest bookly treasures from the vast libraries of OpenLibrary and Google Books, cleanse and refine them, and store them in databanks for enlightenment and analysis.
@@ -129,10 +149,45 @@ Should thou prefer the sanctity of pgAdmin4:
 Alternatively, should thou be inclined to use the command line:
 
     psql -h localhost -p 5433 -U airflow -d books_db
+
+## 🔧 Customize to Thy Liking
+
+✍️ **Modify the Query to Suit Thy Quest**  
+Dost thou seek knowledge beyond data engineering? Fear not, for the script is designed to be molded to thy whims! Within the sacred function `extract_books_data` in `extract.py`, thou shalt find the query:
+    
+    def extract_books_data(): 
+    url = 'https://openlibrary.org/search.json?q=data+engineering'  # Focused query on data engineering
+Replace 'data+engineering' with the essence of thy pursuit. Forsooth, be it "philosophy", "alchemy", or any subject dear to thee, and lo, the knowledge shall be fetched accordingly.
+
+### 🛠️ Add Thine Own Sources
+
+Should thee wish to extend the reach of this mechanism, thou mayst craft a new script for extracting data. To ensure thy creation aligns with the grand pipeline, thou must honor the sacred format of the `transform.py script`. The records must be transformed thusly:
+    
+    transformed_data.append({
+        'title': book['title'],
+        'author': book['author'],
+        'published_date': book['published_date'],
+        'isbn': book['isbn'],
+        'source': book['source']
+    })
+
+This ensures the data from thy new source melds seamlessly with the rest of the enriched tome of knowledge.
+
+### ⚔️ Test for Compatibility and Righteousness
+
+Ere thou dost deploy thy customizations, ensure thy worketh withstands the trials of unit tests. Use the tests provided within the tests/ realm to confirm compatibility. The command to summon the trials is:
+    
+    pytest tests/
+
+Run this incantation within thy project’s sanctuary to verify thy changes passeth all scrutiny.
+### 🛡️ Heed These Words
+By following these steps, thou canst tailor this repository to serve thy most peculiar pursuits. Modify, expand, and test—this pipeline shall bend to thy will whilst retaining its elegance and might.
+
 ## 📂 Project Structure
 
-📁 Books_ETL_Pipeline/
-├── 📂 dags/
+📁 Books_ETL_Pipeline/ 
+
+├── 📂 dags/    
 │   ├── book_etl_dag.py         # DAG of Airflow  
 │   ├── extract.py              # Gatherer of Data from OpenLibrary  
 │   ├── extract_from_google.py  # Gatherer of Data from GoogleBooks  
@@ -152,15 +207,15 @@ Alternatively, should thou be inclined to use the command line:
 
 ## ⚠️ Known Issues and Their Vanquishment
 1. **Scheduler Heartbeat Falters 🛠️:**
-
 - Ensure Airflow volumes are intact.
 - Use docker system prune -f to cleanse thy setup.
 2. **SQL Insert Woes 🔄:**
-
 - Ensure table schema matches the load.py script.
 3. **Log Vanish into the Ether 🧐:**
-
 - Verify mappings in docker-compose.yml
+4. **The Goblins of Slumber Delay Thy Database 💤:**  
+- At first run, the database machinery doth refuse to awaken promptly, for the goblins within linger in slumber.  
+- Prithee, restart thy services twice, and lo, the machinery shall spring to life!  
 ## 🎯 A Roadmap of Future Glories
 - 🌐 Extend support to Goodreads or others.
 - 📈 Bind the pipeline with Metabase for noble visualization.
