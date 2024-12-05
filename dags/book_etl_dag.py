@@ -14,7 +14,7 @@ import os
 # Define the Slack notification messages
 def notify_start():
     slack_api_token = os.getenv("SLACK_API_TOKEN")
-    print(f"SLACK_API_TOKEN: {slack_api_token}")
+    # print(f"SLACK_API_TOKEN: {slack_api_token}")
     send_slack_message("ETL Pipeline: Starting the process 🚀")
 
 

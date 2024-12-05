@@ -223,7 +223,14 @@ By following these steps, thou canst tailor this repository to serve thy most pe
 - Verify mappings in docker-compose.yml
 4. **The Goblins of Slumber Delay Thy Database 💤:**  
 - At first run, the database machinery doth refuse to awaken promptly, for the goblins within linger in slumber.  
-- Prithee, restart thy services twice, and lo, the machinery shall spring to life!  
+- Prithee, restart thy services twice, and lo, the machinery shall spring to life!
+5. **The Discordant Slack Bug 🛡️:**
+- At times, the herald of Slack refuseth to deliver messages due to network gremlins or ill-configured secrets.
+- In such cases, the channel variable (SLACK_CHANNEL) was hardcoded to bypass these quirks.
+- Prithee, should thou encounter this discord, ensure:
+  - Thy network doth allow Slack communication.
+  - Thy Slack token and channel ID are both correct.
+- Alas, this issue remains unvanquished, requiring patience or thy workaround!
 ## 🎯 A Roadmap of Future Glories
 - 🌐 Extend support to Goodreads or others.
 - 📈 Bind the pipeline with Metabase for noble visualization.
