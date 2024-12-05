@@ -30,7 +30,7 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 📊 **Final Table:** The culmination of all labors! Behold the tabular majesty, wherein the fruits of thy efforts—titles, authors, publication years, and more—stand ready to enlighten thy endeavors.
 
 🎩 **Airflow Sorcery:** Marvel at the enchanted scheduler, tirelessly orchestrating the pipeline's every step with grace and precision.
-
+![Airflow_1](airflow_books1.PNG)
 *Here, in this tableau of wisdom, the ETL process cometh alive. Gaze upon its intricacies, for herein liest not just a method but a marvel, where chaos is tamed and knowledge is borne.*
 
 ## ✨ Features of Noble Craft
@@ -40,7 +40,7 @@ Within its bounds, thou shalt witness the harmonious interplay of myriad parts, 
 - 🛡️ **Defenses and Logging of Errors:** Implements vigilant sentinels to guard against mishaps and record the chronicles of the pipeline.
 ![Logs2](airflow_books_log2.PNG)
 - ⏰ **Automation of Timely Tasks:** Employeth the magic of Airflow to schedule thy tasks, ensuring they commence with precision.
-![Airflow_1](airflow_books1.PNG)
+![airflowgant](airflow_books_log3.PNG)
 - 📩 **Slack Heraldry:** Dispatches messengers to announce the state of thine efforts in real-time.
 ![Slackexample](slack_books_etl.PNG)
 - 📦 **Encasement in Docker’s Vessel:** Encircles the pipeline in the aegis of Docker for deployment and scaling to lands far and wide.
